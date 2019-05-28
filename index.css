@@ -58,7 +58,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   pointer-events: auto;
-  background-image: url('camera.png');
+  background-image: url('img/camera.png');
 
 }
 
@@ -75,7 +75,8 @@
   background-repeat: no-repeat;
   background-position: center center;
   pointer-events: auto;
-  background-image: url('camera.png');
+  background-image: url('img/camera.png');
+  display: none; 
 }
 
 #closeButton {
@@ -91,7 +92,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   pointer-events: auto;
-  background-image: url('close.png');
+  background-image: url('img/close.png');
   display: none;
 }
 

@@ -8,10 +8,10 @@
     <script src="//cdn.8thwall.com/web/aframe/8frame-0.8.2.min.js"></script>
     <script src="//cdn.8thwall.com/web/aframe/aframe-animation-component-5.1.2.min.js"></script>
     <script src="//cdn.8thwall.com/web/aframe/aframe-extras-4.2.0.min.js"></script>
-    <script src="gesture-detector.js"></script>
-    <script src="pinch-scale.js"></script>
-    <script src="one-finger-spin.js"></script>
-    <script src="photo-mode.js"></script>
+    <script src="js/gesture-detector.js"></script>
+    <script src="js/pinch-scale.js"></script>
+    <script src="js/one-finger-spin.js"></script>
+    <script src="js/photo-mode.js"></script>
     <!-- <script src="index.js"></script> -->
 
 
@@ -122,11 +122,11 @@
 
       <!-- We can define assets here to be loaded when A-Frame initializes -->
       <a-assets>
-        <a-asset-item id="carModel" src="vw_up.glb"></a-asset-item>
-        <a-asset-item id="carModel2" src="vw_up.glb"></a-asset-item>
-        <img id='hotspot' src='XR-Hotspot.png'>
-        <img id='surface' src='surfacePattern.png'>
-        <img id='shadow' src='carShadow.png'>
+        <a-asset-item id="carModel" src="glbs/vw_up.glb"></a-asset-item>
+        <a-asset-item id="carModel2" src="glbs/vw_up.glb"></a-asset-item>
+        <img id='hotspot' src='img/XR-Hotspot.png'>
+        <img id='surface' src='img/surfacePattern.png'>
+        <img id='shadow' src='img/carShadow.png'>
         <img src="cubemap/posx.png">
         <img src="cubemap/negx.png">
         <img src="cubemap/posz.png">
@@ -156,18 +156,18 @@
         rotation='0 55 0'
         visible='false'
         shadow="cast: true">
-          <a-entity id="shadow"
+          <!-- <a-entity id="shadow"
             geometry="primitive: plane"
             material="src: #shadow; transparent: true; opacity: .5"
             scale="5 8 5" position="2 -2 -1" rotation="-90 0 180">
-          </a-entity>
-          <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: hotspotLayer.png"
+          </a-entity> -->
+          <!-- <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
           position="0 23 -1" look-at="#lookCube" geometry="primitive: circle" material="src: #hotspot; shader: flat; side: double" scale="6 6 6" rotation="0 0 100">
           <a-entity id="HotspotBtn" geometry="" scale="4 4 4" material="opacity: 0; transparent: true; depthTest: false"></a-entity>
           </a-entity>
           <a-entity id="rstHs1" class="sceneHotspot" position="0 23 -1" look-at="#lookCube" geometry="" material="src: ; shader: flat; transparent: true; alphaTest:  0.1;" scale="13 8 .5" rotation="0 0 0" visible="false">
             <a-entity id="rstHsClose1" geometry="" material="alphaTest: 0.99; opacity: 0; blending: none; depthTest: false; depthWrite: false" scale="0.27 0.2 -429.80" position="0.44 0.25 50" class="clickable"></a-entity>
-          </a-entity>
+          </a-entity> -->
       </a-entity>
 
       <a-entity
@@ -224,7 +224,7 @@
         id="ground"
         class="cantap"
         geometry="primitive: box"
-        material="src: surfacePattern.png; transparent: true; opacity: 1"
+        material="color: #ffffff; transparent: true; opacity: 0"
         scale="1000 1 1000"
         position="0 -1 0">
       </a-entity>
