@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Auto Bild VW Up!</title>
+
+    <!-- We've included a slightly modified version of A-Frame, which fixes some polish concerns -->
+    <script src="//cdn.8thwall.com/web/aframe/8frame-0.8.2.min.js"></script>
+    <script src="//cdn.8thwall.com/web/aframe/aframe-animation-component-5.1.2.min.js"></script>
+    <script src="//cdn.8thwall.com/web/aframe/aframe-extras-4.2.0.min.js"></script>
+    <script src="gesture-detector.js"></script>
+    <script src="pinch-scale.js"></script>
+    <script src="one-finger-spin.js"></script>
+    <script src="photo-mode.js"></script>
+    <!-- <script src="index.js"></script> -->
+
+
+
+    <!-- XR Extras - provides utilities like load screen, almost there, and error handling.
+         See github.com/8thwall/web/xrextras -->
+    <script defer src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+
+    <!-- 8thWall Web - Replace the app key here with your own app key -->
+    <script async src="//apps.8thwall.com/xrweb?appKey=cfrUbE0JwSkwG1bb5YButMJm8pg9ZYOUhn2bnMms2wJFzRw6YhvrERjDiQ6pg19Hn6wGOW"></script>
+
+    <script>
+      // Component that places trees where the ground is clicked
+      AFRAME.registerComponent('tap-place', {
+        init: function() {
+          const ground = document.getElementById('ground')
+          ground.addEventListener('click', event => {
+            var sceneEl = document.querySelector('a-scene')
+            // The raycaster gives a location of the touch in the scene
+            const touchPoint = event.detail.intersection.point
+            sceneEl.querySelector('a-entity#carModel').setAttribute('position', touchPoint)
+
+            sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
+            sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.25 .25 .25')
+
+            sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
+                property: 'scale',
+                to: '3 3 3',
+                easing: 'easeOutElastic',
+                dur: 2300,
+              })
+          })
+         switchButton.addEventListener('click', () => {
+            // Emit a modelrequest to the xrweb component
+            var sceneEl = document.querySelector('a-scene')
+         //    // if (sceneEl.querySelector('a-entity#carModel').getAttribute('visible', 'true')) {
+         //    //   sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'false')
+         //    // }
+         //    // else (sceneEl.querySelector('a-entity#carModel2').getAttribute('visible', 'false')){
+         //    //   sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'true')
+         //    // }
+            sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'false')
+            sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'true')
+          })
+        }
+      })
+
+      AFRAME.registerComponent('hotspots-component', {
+        schema: {
+      hstarget: {default: ''},
+      hsshader: {default: ''},
+      closetarget: {default: ''},
+      assetlocation: {default: ''}
+    },
+      init: function () {
+        // Code here.
+        //console.log(this.el + "LLLLLLLLLL");
+        const currentHs = this.el;
+        const hsTarget = this.data.hstarget;
+        const hotspotName = this.data.hotspotname;
+        const newTarget = this.el.sceneEl.querySelector(hsTarget);
+        const closeTarget = this.data.closetarget;
+        const newCloseTarget = this.el.sceneEl.querySelector(closeTarget);
+        const assetLocation = this.data.assetlocation;
+        const hsShader = this.data.hsshader;
+        this.el.addEventListener('mousedown', function () {
+
+          newTarget.setAttribute("material","src:" + assetLocation + ";" + "shader:" + hsShader + "; transparent: true;");
+          newTarget.addEventListener('materialtextureloaded', openHotSpot);
+
+          function openHotSpot() {
+            currentHs.setAttribute("visible",false);
+            newTarget.setAttribute("visible",true);
+
+          }
+        });
+      }
+    });
+
+    </script>
+
+
+    <link rel="stylesheet" href="index.css">
+
+  </head>
+
+  <body>
+    <!-- These HTML elements are used to show an UI laid over the scene -->
+    <div id="photoModeContainer" style="display: none">
+      <img id="photoModeImage">
+      <div id="flash"></div>
+      <div id="shutterButton"></div>
+      <div id="switchButton">
+        <!-- <input type="button" onclick="modelSwap()"/> -->
+      </div>
+      <div id="closeButton"></div>
+    </div>
+    <!-- We must add the tap-place component to the scene so it has an effect -->
+    <a-scene
+      xrweb
+      tap-place
+      gesture-detector
+      xrextras-almost-there
+      xrextras-loading
+      xrextras-runtime-error
+      photo-mode
+      swap-model>
+
+      <!-- We can define assets here to be loaded when A-Frame initializes -->
+      <a-assets>
+        <a-asset-item id="carModel" src="vw_up.glb"></a-asset-item>
+        <a-asset-item id="carModel2" src="vw_up.glb"></a-asset-item>
+        <img id='hotspot' src='XR-Hotspot.png'>
+        <img id='surface' src='surfacePattern.png'>
+        <img id='shadow' src='carShadow.png'>
+        <img src="cubemap/posx.png">
+        <img src="cubemap/negx.png">
+        <img src="cubemap/posz.png">
+        <img src="cubemap/negz.png">
+        <img src="cubemap/posy.png">
+        <img src="cubemap/negy.png">
+      </a-assets>
+
+      <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
+      <a-camera
+        position="0 8 0"
+        raycaster="objects: .cantap"
+        cursor="
+          fuse: false;
+          rayOrigin: mouse;">
+      </a-camera>
+
+      <a-entity
+        id="carModel"
+        gltf-model="#carModel"
+        class="cantap"
+        cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
+        one-finger-spin
+        pinch-scale
+        scale="3 3 3"
+        position="0 -1 -10"
+        rotation='0 55 0'
+        visible='false'
+        shadow="cast: true">
+          <a-entity id="shadow"
+            geometry="primitive: plane"
+            material="src: #shadow; transparent: true; opacity: .5"
+            scale="5 8 5" position="2 -2 -1" rotation="-90 0 180">
+          </a-entity>
+          <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: hotspotLayer.png"
+          position="0 23 -1" look-at="#lookCube" geometry="primitive: circle" material="src: #hotspot; shader: flat; side: double" scale="6 6 6" rotation="0 0 100">
+          <a-entity id="HotspotBtn" geometry="" scale="4 4 4" material="opacity: 0; transparent: true; depthTest: false"></a-entity>
+          </a-entity>
+          <a-entity id="rstHs1" class="sceneHotspot" position="0 23 -1" look-at="#lookCube" geometry="" material="src: ; shader: flat; transparent: true; alphaTest:  0.1;" scale="13 8 .5" rotation="0 0 0" visible="false">
+            <a-entity id="rstHsClose1" geometry="" material="alphaTest: 0.99; opacity: 0; blending: none; depthTest: false; depthWrite: false" scale="0.27 0.2 -429.80" position="0.44 0.25 50" class="clickable"></a-entity>
+          </a-entity>
+      </a-entity>
+
+      <a-entity
+        light="type: directional; intensity: 0.8; castShadow: true; shadowMapHeight: 2048; shadowMapWidth: 2048"
+        position="1 4.3 2.5">
+      </a-entity>
+
+      <a-entity
+        id="carModel2"
+        gltf-model="#carModel2"
+        class="cantap"
+        cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
+        one-finger-spin
+        pinch-scale
+        scale="0.25 0.25 0.25"
+        position="0 -1 -10"
+        rotation='0 55 0'
+        visible='false'
+        shadow="cast: true">
+      </a-entity>
+
+
+      <!-- <a-light
+            id="dirLight"
+            type="directional"
+            target="#carModel"
+            position="-3 5 4"
+            intensity="1"
+            light="castShadow: true;
+              shadowMapHeight: 2048;
+              shadowMapWidth: 2048">
+      </a-light> -->
+
+      <!-- <a-entity id="carModel2"
+        gltf-model="#carModel2"
+        scale="3 3 3"
+        one-finger-spin
+        pinch-scale
+        position="0 -1 -10"
+        rotation='0 55 0'
+        cube-env-map="path: cubemap/; extension: png; reflectivity: 1;"
+        shadow="cast: true">
+        <a-entity id="shadow"
+          geometry="primitive: plane"
+          material="src: #shadow; transparent: true; opacity: .5"
+          scale="5 8 5" position="2 -2 -1" rotation="-90 0 180">
+        </a-entity>
+      </a-entity> -->
+
+      <a-light type="ambient" intensity="1"></a-light>
+
+      <!-- Adding the cantap class allows the ground to be clicked -->
+      <a-entity
+        id="ground"
+        class="cantap"
+        geometry="primitive: box"
+        material="src: surfacePattern.png; transparent: true; opacity: 1"
+        scale="1000 1 1000"
+        position="0 -1 0">
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
