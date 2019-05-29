@@ -33,7 +33,9 @@
             // The raycaster gives a location of the touch in the scene
             const touchPoint = event.detail.intersection.point
             sceneEl.querySelector('a-entity#carModel').setAttribute('position', touchPoint)
-            container.classList.remove('tapToPlace')
+            tapToPlace.addEventListener('click', () => {
+              container.classList.remove('tapToPlace')
+            })
             sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
             sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.5 .5 .5')
 
