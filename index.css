@@ -56,6 +56,7 @@
   background-position: center center;
   pointer-events: auto;
   background-image: url('img/PlaceIcon.png');
+  pointer-events: none;
 }
 
 #shutterButton {
