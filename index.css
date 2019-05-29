@@ -45,7 +45,7 @@
   pointer-events: auto;
 }
 
-.tapToPlace #tapToPlace {
+#tapToPlace {
   position: absolute;
   width: 80vmin;
   height: 20vmin;
@@ -109,6 +109,9 @@
   display: none;
 }
 
+.tapToPlace #tapToPlace {
+  display: none;
+}
 .photo #shutterButton {
   display: none;
 }
