@@ -47,10 +47,10 @@
 
 #tapToPlace {
   position: absolute;
-  width: 15vmin;
-  height: 15vmin;
-  bottom: 2vmax;
-  left: 50%;
+  width: 80vmin;
+  height: 20vmin;
+  bottom: 5vmax;
+  left: 10%;
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center center;
