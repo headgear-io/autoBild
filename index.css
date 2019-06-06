@@ -129,7 +129,10 @@
 .tapToHide #tapToPlace {
   display: none;
 }
-.photo #shutterButton {
+.tapToHide #twoDoorButton #shutterButton {
+  display: block;
+}
+.photo #shutterButton #fourDoorButton #twoDoorButton {
   display: none;
 }
 
