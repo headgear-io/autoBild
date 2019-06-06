@@ -90,7 +90,7 @@
   background-position: center center;
   pointer-events: auto;
   background-image: url('img/2door.png');
-  /* display: none; */
+  display: none;
 }
 
 #fourDoorButton {
@@ -133,14 +133,21 @@
 .tapToShow  #shutterButton {
   display: block;
 }
+.tapToShow  #twoDoorButton {
+  display: block;
+}
 .photo #shutterButton {
   display: none;
 }
-
+.photo #twoDoorButton {
+  display: none;
+}
+.photo #fourDoorButton {
+  display: none;
+}
 .photo #closeButton {
   display: block;
 }
-
 .model #fourDoorButton {
   display: block;
 }
