@@ -12,6 +12,7 @@
     <script src="js/pinch-scale.js"></script>
     <script src="js/one-finger-spin.js"></script>
     <script src="js/photo-mode.js"></script>
+    <!-- <script src="js/hold-drag.js"></script> -->
     <!-- <script src="index.js"></script> -->
 
 
@@ -34,42 +35,29 @@
             const touchPoint = event.detail.intersection.point
             const container = document.getElementById('photoModeContainer')
             sceneEl.querySelector('a-entity#carModel').setAttribute('position', touchPoint)
-            container.classList.add('tapToPlace')
+            container.classList.add('tapToHide')
             sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
-            sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.5 .5 .5')
-
-            sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
-                property: 'scale',
-                to: '5 5 5',
-                easing: 'easeOutElastic',
-                dur: 2300,
-              })
-          })
-         switchButton.addEventListener('click', () => {
-            // Emit a modelrequest to the xrweb component
-            var sceneEl = document.querySelector('a-scene')
-         //    // if (sceneEl.querySelector('a-entity#carModel').getAttribute('visible', 'true')) {
-         //    //   sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'false')
-         //    // }
-         //    // else (sceneEl.querySelector('a-entity#carModel2').getAttribute('visible', 'false')){
-         //    //   sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'true')
-         //    // }
-            sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'false')
-            sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'true')
+            // sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.5 .5 .5')
+            //
+            // sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
+            //     property: 'scale',
+            //     to: '5 5 5',
+            //     easing: 'easeOutElastic',
+            //     dur: 2300,
+            //   })
           })
         }
       })
 
-      AFRAME.registerComponent('hotspots-component', {
-        schema: {
-      hstarget: {default: ''},
-      hsshader: {default: ''},
-      closetarget: {default: ''},
-      assetlocation: {default: ''}
+    AFRAME.registerComponent('hotspots-component', {
+      schema: {
+        hstarget: {default: ''},
+        hsshader: {default: ''},
+        closetarget: {default: ''},
+        assetlocation: {default: ''}
     },
       init: function () {
-        // Code here.
-        //console.log(this.el + "LLLLLLLLLL");
+
         const currentHs = this.el;
         const hsTarget = this.data.hstarget;
         const hotspotName = this.data.hotspotname;
@@ -79,19 +67,22 @@
         const assetLocation = this.data.assetlocation;
         const hsShader = this.data.hsshader;
         this.el.addEventListener('mousedown', function () {
-
           newTarget.setAttribute("material","src:" + assetLocation + ";" + "shader:" + hsShader + "; transparent: true;");
           newTarget.addEventListener('materialtextureloaded', openHotSpot);
 
           function openHotSpot() {
             currentHs.setAttribute("visible",false);
             newTarget.setAttribute("visible",true);
-
           }
+        newCloseTarget.addEventListener('mousedown', function () {
+            currentHs.setAttribute("visible",true);
+            newTarget.setAttribute("visible",false);
+            newTarget.setAttribute("material","src:");
+          });
+
         });
       }
     });
-
     </script>
 
 
@@ -106,7 +97,8 @@
       <div id="flash"></div>
       <div id="tapToPlace"></div>
       <div id="shutterButton"></div>
-      <div id="switchButton"></div>
+      <div id="twoDoorButton"></div>
+      <div id="fourDoorButton"></div>
       <div id="closeButton"></div>
     </div>
     <!-- We must add the tap-place component to the scene so it has an effect -->
@@ -117,16 +109,15 @@
       xrextras-almost-there
       xrextras-loading
       xrextras-runtime-error
-      photo-mode
-      swap-model>
+      photo-mode>
 
       <!-- We can define assets here to be loaded when A-Frame initializes -->
       <a-assets>
-        <a-asset-item id="carModel" src="glbs/vw_up.glb"></a-asset-item>
-        <a-asset-item id="carModel2" src="glbs/vw_up.glb"></a-asset-item>
+        <a-asset-item id="carModel1" src="glbs/vw_up.glb"></a-asset-item>
+        <a-asset-item id="carModel2" src="glbs/vw_up_2doors.glb"></a-asset-item>
         <img id='hotspot' src='img/XR-Hotspot.png'>
-        <img id='surface' src='img/surfacePattern.png'>
-        <img id='shadow' src='img/carShadow.png'>
+        <img id='close' src='img/closeHs.png'>
+        <img id='open' src='img/openHs.png'>
         <img src="cubemap/posx.png">
         <img src="cubemap/negx.png">
         <img src="cubemap/posz.png">
@@ -137,85 +128,56 @@
 
       <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
       <a-camera
+        id="camera"
         position="0 8 0"
         raycaster="objects: .cantap"
         cursor="
           fuse: false;
           rayOrigin: mouse;">
       </a-camera>
-
       <a-entity
         id="carModel"
-        gltf-model="#carModel"
-        class="cantap"
-        cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
-        one-finger-spin
-        pinch-scale
         scale="3 3 3"
         position="0 -1 -10"
         rotation='0 55 0'
-        visible='false'
-        shadow="cast: true">
-          <!-- <a-entity id="shadow"
-            geometry="primitive: plane"
-            material="src: #shadow; transparent: true; opacity: .5"
-            scale="5 8 5" position="2 -2 -1" rotation="-90 0 180">
-          </a-entity> -->
-          <!-- <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
-          position="0 23 -1" look-at="#lookCube" geometry="primitive: circle" material="src: #hotspot; shader: flat; side: double" scale="6 6 6" rotation="0 0 100">
-          <a-entity id="HotspotBtn" geometry="" scale="4 4 4" material="opacity: 0; transparent: true; depthTest: false"></a-entity>
+        shadow="cast: true"
+        visible="false">
+          <a-entity
+            id="carModel2"
+            class="cantap"
+            one-finger-spin
+            pinch-scale
+            gltf-model="#carModel2"
+            cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
+            visible="false">
+            <a-entity id='hotspot' hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
+            position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
+            </a-entity>
+            <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".3 .15 .005" rotation="0 0 0" visible="false">
+              <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.25 .5 .5" position="0 -1.3 0.6" class="clickable"></a-entity>
+            </a-entity>
           </a-entity>
-          <a-entity id="rstHs1" class="sceneHotspot" position="0 23 -1" look-at="#lookCube" geometry="" material="src: ; shader: flat; transparent: true; alphaTest:  0.1;" scale="13 8 .5" rotation="0 0 0" visible="false">
-            <a-entity id="rstHsClose1" geometry="" material="alphaTest: 0.99; opacity: 0; blending: none; depthTest: false; depthWrite: false" scale="0.27 0.2 -429.80" position="0.44 0.25 50" class="clickable"></a-entity>
-          </a-entity> -->
+          <a-entity
+            id="carModel1"
+            class="cantap"
+            one-finger-spin
+            pinch-scale
+            gltf-model="#carModel1"
+            cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
+            shadow>
+            <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
+            position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
+            </a-entity>
+            <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".3 .15 .005" rotation="0 0 0" visible="false">
+              <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.25 .5 .5" position="0 -1.3 0.6" class="clickable"></a-entity>
+            </a-entity>
+          </a-entity>
       </a-entity>
 
       <a-entity
-        light="type: directional; intensity: 1; castShadow: true; shadowMapHeight: 2048; shadowMapWidth: 2048"
+        light="type: directional; intensity: 1; castShadow: true;  shadowMapHeight: 2048; shadowMapWidth: 2048"
         position="1 4.3 2.5">
       </a-entity>
-
-      <a-entity
-        id="carModel2"
-        gltf-model="#carModel2"
-        class="cantap"
-        cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
-        one-finger-spin
-        pinch-scale
-        scale="0.25 0.25 0.25"
-        position="0 -1 -10"
-        rotation='0 55 0'
-        visible='false'
-        shadow="cast: true">
-      </a-entity>
-
-
-      <!-- <a-light
-            id="dirLight"
-            type="directional"
-            target="#carModel"
-            position="-3 5 4"
-            intensity="1"
-            light="castShadow: true;
-              shadowMapHeight: 2048;
-              shadowMapWidth: 2048">
-      </a-light> -->
-
-      <!-- <a-entity id="carModel2"
-        gltf-model="#carModel2"
-        scale="3 3 3"
-        one-finger-spin
-        pinch-scale
-        position="0 -1 -10"
-        rotation='0 55 0'
-        cube-env-map="path: cubemap/; extension: png; reflectivity: 1;"
-        shadow="cast: true">
-        <a-entity id="shadow"
-          geometry="primitive: plane"
-          material="src: #shadow; transparent: true; opacity: .5"
-          scale="5 8 5" position="2 -2 -1" rotation="-90 0 180">
-        </a-entity>
-      </a-entity> -->
 
       <a-light type="ambient" intensity="1"></a-light>
 
@@ -224,9 +186,12 @@
         id="ground"
         class="cantap"
         geometry="primitive: box"
+        scale="100 2 100"
         material="color: #ffffff; transparent: true; opacity: 0"
-        scale="1000 1 1000"
-        position="0 -1 0">
+        position="0 -1 0"
+        static-body
+        shadow
+        shadow-material>
       </a-entity>
     </a-scene>
   </body>

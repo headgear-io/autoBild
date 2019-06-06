@@ -3,8 +3,10 @@ AFRAME.registerComponent('photo-mode', {
     const container = document.getElementById('photoModeContainer')
     const image = document.getElementById('photoModeImage')
     const shutterButton = document.getElementById('shutterButton')
-    const switchButton = document.getElementById('switchButton')
+    const twoDoorButton = document.getElementById('twoDoorButton')
+    const fourDoorButton = document.getElementById('fourDoorButton')
     const closeButton = document.getElementById('closeButton')
+    var sceneEl = document.querySelector('a-scene')
 
     // Container starts hidden so it isn't visible when the page is still loading
     container.style.display = 'block'
@@ -41,6 +43,16 @@ AFRAME.registerComponent('photo-mode', {
 
       // Show the photo
       container.classList.add('photo')
+    })
+    twoDoorButton.addEventListener('click', () => {
+      container.classList.add('model')
+      sceneEl.querySelector('a-entity#carModel1').setAttribute('visible', 'false')
+      sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'true')
+    })
+    fourDoorButton.addEventListener('click', () => {
+      container.classList.remove('model')
+      sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'false')
+      sceneEl.querySelector('a-entity#carModel1').setAttribute('visible', 'true')      
     })
   }
 })

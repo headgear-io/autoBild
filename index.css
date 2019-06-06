@@ -76,7 +76,7 @@
 
 }
 
-#switchButton {
+#twoDoorButton {
   position: absolute;
   width: 15vmin;
   height: 15vmin;
@@ -89,7 +89,23 @@
   background-repeat: no-repeat;
   background-position: center center;
   pointer-events: auto;
-  background-image: url('img/camera.png');
+  background-image: url('img/2door.png');
+}
+
+#fourDoorButton {
+  position: absolute;
+  width: 15vmin;
+  height: 15vmin;
+  background-color: red;
+  bottom: 2vmax;
+  left: 13%;
+  border-radius: 7.5vmin;
+  transform: translateX(-50%);
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  pointer-events: auto;
+  background-image: url('img/4door.png');
   display: none;
 }
 
@@ -110,7 +126,7 @@
   display: none;
 }
 
-.tapToPlace #tapToPlace {
+.tapToHide #tapToPlace {
   display: none;
 }
 .photo #shutterButton {
@@ -119,4 +135,11 @@
 
 .photo #closeButton {
   display: block;
+}
+
+.model #fourDoorButton {
+  display: block;
+}
+.model #twoDoorButton {
+  display: none;
 }
