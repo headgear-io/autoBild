@@ -73,7 +73,7 @@
   background-position: center center;
   pointer-events: auto;
   background-image: url('img/camera.png');
-  display: none;
+  /* display: none; */
 }
 
 #twoDoorButton {
@@ -90,7 +90,7 @@
   background-position: center center;
   pointer-events: auto;
   background-image: url('img/2door.png');
-  display: none;
+  /* display: none; */
 }
 
 #fourDoorButton {
@@ -130,9 +130,9 @@
 .tapToHide #tapToPlace {
   display: none;
 }
-.tapToShow #twoDoorButton #shutterButton {
+/* .tapToShow #twoDoorButton #shutterButton {
   display: block;
-}
+} */
 .photo #shutterButton #fourDoorButton #twoDoorButton {
   display: none;
 }
