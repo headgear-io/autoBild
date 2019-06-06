@@ -73,7 +73,7 @@
   background-position: center center;
   pointer-events: auto;
   background-image: url('img/camera.png');
-  /* display: none; */
+  display: none;
 }
 
 #twoDoorButton {
@@ -130,10 +130,10 @@
 .tapToHide #tapToPlace {
   display: none;
 }
-/* .tapToShow #twoDoorButton #shutterButton {
+.tapToShow  #shutterButton {
   display: block;
-} */
-.photo #shutterButton #fourDoorButton #twoDoorButton {
+}
+.photo #shutterButton {
   display: none;
 }
 
