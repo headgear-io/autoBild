@@ -43,6 +43,7 @@ AFRAME.registerComponent('photo-mode', {
 
       // Show the photo
       container.classList.add('photo')
+      container.classList.remove('model')
     })
     twoDoorButton.addEventListener('click', () => {
       container.classList.add('model')
@@ -52,7 +53,7 @@ AFRAME.registerComponent('photo-mode', {
     fourDoorButton.addEventListener('click', () => {
       container.classList.remove('model')
       sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'false')
-      sceneEl.querySelector('a-entity#carModel1').setAttribute('visible', 'true')      
+      sceneEl.querySelector('a-entity#carModel1').setAttribute('visible', 'true')
     })
   }
 })

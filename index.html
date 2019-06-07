@@ -25,6 +25,14 @@
     <script async src="//apps.8thwall.com/xrweb?appKey=cfrUbE0JwSkwG1bb5YButMJm8pg9ZYOUhn2bnMms2wJFzRw6YhvrERjDiQ6pg19Hn6wGOW"></script>
 
     <script>
+      AFRAME.registerComponent('shadow-material', {
+        init:function() {
+          this.material = new THREE.ShadowMaterial()
+          this.el.getOrCreateObject3D('mesh').material = this.material
+          this.material.opacity = 0.4
+        }
+
+      })
       // Component that places trees where the ground is clicked
       AFRAME.registerComponent('tap-place', {
         init: function() {
@@ -38,14 +46,14 @@
             container.classList.add('tapToHide')
             container.classList.add('tapToShow')
             sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
-            // sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.5 .5 .5')
-            //
-            // sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
-            //     property: 'scale',
-            //     to: '5 5 5',
-            //     easing: 'easeOutElastic',
-            //     dur: 2300,
-            //   })
+            sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.5 .5 .5')
+
+            sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
+                property: 'scale',
+                to: '3 3 3',
+                easing: 'easeOutElastic',
+                dur: 2300,
+              })
           })
         }
       })
@@ -114,7 +122,7 @@
 
       <!-- We can define assets here to be loaded when A-Frame initializes -->
       <a-assets>
-        <a-asset-item id="carModel1" src="glbs/vw_up.glb"></a-asset-item>
+        <a-asset-item id="carModel1" src="glbs/vw_up_shiny.glb"></a-asset-item>
         <a-asset-item id="carModel2" src="glbs/vw_up_2doors_glassy.glb"></a-asset-item>
         <img id='hotspot' src='img/XR-Hotspot.png'>
         <img id='close' src='img/closeHS.png'>
@@ -139,15 +147,15 @@
       <a-entity
         id="carModel"
         scale="3 3 3"
-        position="0 -1 -10"
+        position="0 1000 -10"
         rotation='0 55 0'
         shadow="cast: true"
+        class="cantap"
+        one-finger-spin
+        pinch-scale
         visible="false">
           <a-entity
             id="carModel2"
-            class="cantap"
-            one-finger-spin
-            pinch-scale
             gltf-model="#carModel2"
             cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
             visible="false">
@@ -160,9 +168,6 @@
           </a-entity>
           <a-entity
             id="carModel1"
-            class="cantap"
-            one-finger-spin
-            pinch-scale
             gltf-model="#carModel1"
             cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
             shadow>
