@@ -1,4 +1,4 @@
-AFRAME.registerComponent('photo-mode', {
+AFRAME.registerComponent('buttons', {
   init: function() {
     const container = document.getElementById('photoModeContainer')
     const image = document.getElementById('photoModeImage')
