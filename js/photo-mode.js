@@ -6,10 +6,24 @@ AFRAME.registerComponent('photo-mode', {
     const twoDoorButton = document.getElementById('twoDoorButton')
     const fourDoorButton = document.getElementById('fourDoorButton')
     const closeButton = document.getElementById('closeButton')
+    // const tapToPlace = document.getElementById('tapToPlace')
     var sceneEl = document.querySelector('a-scene')
 
     // Container starts hidden so it isn't visible when the page is still loading
     container.style.display = 'block'
+
+    tapToPlace.addEventListener('click', () => {
+      container.classList.add('tapToHide')
+      container.classList.add('tapToShow')
+      sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
+      sceneEl.querySelector('a-entity#carModel').setAttribute('position', '0 23 -10')
+      sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
+                property: 'position',
+                to: '0 0 -10',
+                easing: 'easeOutElastic',
+                dur: 1300,
+              })
+    })
 
     closeButton.addEventListener('click', () => {
       container.classList.remove('photo')
@@ -55,5 +69,7 @@ AFRAME.registerComponent('photo-mode', {
       sceneEl.querySelector('a-entity#carModel2').setAttribute('visible', 'false')
       sceneEl.querySelector('a-entity#carModel1').setAttribute('visible', 'true')
     })
+
+
   }
 })

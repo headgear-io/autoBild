@@ -20,7 +20,7 @@ AFRAME.registerComponent('hold-drag', {
     }
 
     const tapRingInner = document.createElement('a-ring')
-    tapRingInner.setAttribute('color', '#0dd')
+    tapRingInner.setAttribute('color', 'red')
     tapRingInner.setAttribute('ring-inner', '0.5')
     tapRingInner.setAttribute('ring-outer', '0.75')
     tapRingInner.setAttribute('rotation', '-90 0 0')
