@@ -6,7 +6,7 @@ AFRAME.registerComponent('buttons', {
     const twoDoorButton = document.getElementById('twoDoorButton')
     const fourDoorButton = document.getElementById('fourDoorButton')
     const closeButton = document.getElementById('closeButton')
-    // const tapToPlace = document.getElementById('tapToPlace')
+    const tapToPlace = document.getElementById('tapToPlace')
     var sceneEl = document.querySelector('a-scene')
 
     // Container starts hidden so it isn't visible when the page is still loading
@@ -15,13 +15,14 @@ AFRAME.registerComponent('buttons', {
     tapToPlace.addEventListener('click', () => {
       container.classList.add('tapToHide')
       container.classList.add('tapToShow')
+      this.el.sceneEl.emit('recenter')
       sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
-      sceneEl.querySelector('a-entity#carModel').setAttribute('position', '0 23 -10')
+      sceneEl.querySelector('a-entity#carModel').setAttribute('position', '0 10 -10')
       sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
                 property: 'position',
                 to: '0 0 -10',
                 easing: 'easeOutElastic',
-                dur: 1300,
+                dur: 2300,
               })
     })
 
@@ -36,11 +37,6 @@ AFRAME.registerComponent('buttons', {
       // Show the flash while the image is being taken
       container.classList.add('flash')
     })
-
-    // switchButton.addEventListener('click', () => {
-    //   // Emit a modelrequest to the xrweb component
-    //   this.el.sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
-    // })
 
     this.el.sceneEl.addEventListener('screenshotready', e => {
       // Hide the flash

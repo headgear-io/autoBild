@@ -33,32 +33,26 @@
         }
 
       })
-      // Component that places trees where the ground is clicked
-      // AFRAME.registerComponent('tap-place', {
-      //   init: function() {
-      //     const ground = document.getElementById('ground')
-      //     ground.addEventListener('click', event => {
-      //       var sceneEl = document.querySelector('a-scene')
-      //       // The raycaster gives a location of the touch in the scene
-      //       const touchPoint = event.detail.intersection.point
-      //       //console.log(event.detail.intersection.point);
-      //       const container = document.getElementById('photoModeContainer')
-      //       sceneEl.querySelector('a-entity#carModel').setAttribute('position', touchPoint)
-      //       container.classList.add('tapToHide')
-      //       container.classList.add('tapToShow')
-      //       sceneEl.querySelector('a-entity#carModel').setAttribute('visible', 'true')
-      //       sceneEl.querySelector('a-entity#carModel').setAttribute('scale', '.5 .5 .5')
-      //       sceneEl.querySelector('a-entity#carModel').setAttribute('animation', {
-      //           property: 'scale',
-      //           to: '3 3 3',
-      //           easing: 'easeOutElastic',
-      //           dur: 2300,
-      //         })
-      //       })
-      //   }
-      // })
 
-    AFRAME.registerComponent('hotspots-component', {
+      AFRAME.registerComponent('attach', {
+        schema: {
+          target: { default: '' },
+        },
+        update: function() {
+          const targetElement = document.getElementById(this.data.target)
+          if (!targetElement) {
+            return
+          }
+          this.target = targetElement.object3D
+        },
+        tick: function() {
+          if (this.target) {
+            this.el.object3D.position.set(this.target.position.x, this.target.position.y + 5, this.target.position.z)
+            }
+          }
+        })
+
+      AFRAME.registerComponent('hotspots-component', {
       schema: {
         hstarget: {default: ''},
         hsshader: {default: ''},
@@ -113,7 +107,6 @@
     <!-- We must add the tap-place component to the scene so it has an effect -->
     <a-scene
       xrweb
-      tap-place
       gesture-detector
       xrextras-almost-there
       xrextras-loading
@@ -122,8 +115,8 @@
 
       <!-- We can define assets here to be loaded when A-Frame initializes -->
       <a-assets>
-        <a-asset-item id="carModel1" src="glbs/vw_up_shiny.glb"></a-asset-item>
-        <a-asset-item id="carModel2" src="glbs/vw_up_2doors_glassy.glb"></a-asset-item>
+        <a-asset-item id="carModel1" src="glbs/wv_up.glb"></a-asset-item>
+        <a-asset-item id="carModel2" src="glbs/wvup_2_doors.glb"></a-asset-item>
         <img id='close' src='img/closeHS.png'>
         <img id='open' src='img/openHS.png'>
         <img src="cubemap/posx.png">
@@ -163,8 +156,8 @@
             <a-entity id='hotspot' hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
             position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
             </a-entity>
-            <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".3 .15 .005" rotation="0 0 0" visible="false">
-              <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.25 .5 .5" position="0 -1.3 0.6" class="clickable"></a-entity>
+            <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".375 .189375 .00625" rotation="0 0 0" visible="false">
+              <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1875 0.375 0.375" position="0 -1.1 0.6" class="clickable"></a-entity>
             </a-entity>
           </a-entity>
           <a-entity
@@ -175,15 +168,18 @@
             <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
             position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
             </a-entity>
-            <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".3 .15 .005" rotation="0 0 0" visible="false">
-              <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.25 .5 .5" position="0 -1.3 0.6" class="clickable"></a-entity>
+            <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".375 .189375 .00625" rotation="0 0 0" visible="false">
+              <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1875 0.375 0.375" position="0 -1.1 0.6" class="clickable"></a-entity>
             </a-entity>
           </a-entity>
+        </a-entity>
+
           <a-entity
-            light="type: directional; intensity: 1; castShadow: true; shadowCameraTop: 10; shadowCameraRight: 10; shadowCameraNear: -1"
-            position="1 4.3 2.5">
+            light="type: directional; intensity: 1; castShadow: true; shadowCameraTop: 10; shadowMapHeight: 1024; shadowMapWidth: 1024;"
+            position="1 4.3 2.5"
+            attach="target: carModel"
+            shadow>
           </a-entity>
-      </a-entity>
 
       <a-light type="ambient" intensity="1"></a-light>
 
@@ -195,6 +191,7 @@
         class="cantap"
         material="color: #ffffff; transparent: false; opacity: 100"
         position="0 -1 0"
+        pinch-scale
         static-body
         shadow
         shadow-material>
