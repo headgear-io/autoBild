@@ -22,7 +22,7 @@ AFRAME.registerComponent('buttons', {
                 property: 'position',
                 to: '0 0 -10',
                 easing: 'easeOutElastic',
-                dur: 2300,
+                dur: 3300,
               })
     })
 

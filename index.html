@@ -156,8 +156,8 @@
             <a-entity id='hotspot' hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
             position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
             </a-entity>
-            <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".375 .189375 .00625" rotation="0 0 0" visible="false">
-              <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1875 0.375 0.375" position="0 -1.1 0.6" class="clickable"></a-entity>
+            <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
+              <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1434375 0.286875 0.286875" position="0 -.8 0.6" class="clickable"></a-entity>
             </a-entity>
           </a-entity>
           <a-entity
@@ -168,14 +168,14 @@
             <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
             position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
             </a-entity>
-            <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale=".375 .189375 .00625" rotation="0 0 0" visible="false">
-              <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1875 0.375 0.375" position="0 -1.1 0.6" class="clickable"></a-entity>
+            <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
+              <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1434375 0.286875 0.286875" position="0 -.8 0.6" class="clickable"></a-entity>
             </a-entity>
           </a-entity>
         </a-entity>
 
           <a-entity
-            light="type: directional; intensity: 1; castShadow: true; shadowCameraTop: 10; shadowMapHeight: 1024; shadowMapWidth: 1024;"
+            light="type: directional; intensity: 1; castShadow: true; shadowCameraTop: 10; shadowCameraVisible: true; shadowMapHeight: 1024; shadowMapWidth: 1024;"
             position="1 4.3 2.5"
             attach="target: carModel"
             shadow>
