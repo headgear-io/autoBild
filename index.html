@@ -115,8 +115,8 @@
 
       <!-- We can define assets here to be loaded when A-Frame initializes -->
       <a-assets>
-        <a-asset-item id="carModel1" src="glbs/wv_up.glb"></a-asset-item>
-        <a-asset-item id="carModel2" src="glbs/wvup_2_doors.glb"></a-asset-item>
+        <a-asset-item id="4Door" src="glbs/wv_up.glb"></a-asset-item>
+        <a-asset-item id="2Door" src="glbs/wvup_2_doors.glb"></a-asset-item>
         <img id='close' src='img/closeHS.png'>
         <img id='open' src='img/openHS.png'>
         <img src="cubemap/posx.png">
@@ -149,11 +149,11 @@
         visible="false">
           <a-entity
             id="carModel2"
-            gltf-model="#carModel2"
+            gltf-model="#2Door"
             cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
             shadow
             visible="false">
-            <a-entity id='hotspot' hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
+            <a-entity id='hotspot2' hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
             position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
             </a-entity>
             <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
@@ -162,10 +162,10 @@
           </a-entity>
           <a-entity
             id="carModel1"
-            gltf-model="#carModel1"
+            gltf-model="#4Door"
             cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
             shadow>
-            <a-entity id='hotspot' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
+            <a-entity id='hotspot1' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
             position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
             </a-entity>
             <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
