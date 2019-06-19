@@ -47,7 +47,8 @@
         },
         tick: function() {
           if (this.target) {
-            this.el.object3D.position.set(this.target.position.x, this.target.position.y + 5, this.target.position.z)
+            this.el.object3D.position.set(this.target.position.x, this.target.position.y + 5, this.target.position.z - 2)
+            // this.el.object3D.rotation.set(this.target.position.x - 45, this.target.position.y, this.target.position.z)
             }
           }
         })
@@ -176,7 +177,8 @@
 
           <a-entity
             light="type: directional; intensity: 1; castShadow: true; shadowCameraTop: 10; shadowCameraVisible: true; shadowMapHeight: 1024; shadowMapWidth: 1024;"
-            position="1 4.3 2.5"
+            position="0 2 0"
+            rotation="90 0 0"
             attach="target: carModel"
             shadow>
           </a-entity>
