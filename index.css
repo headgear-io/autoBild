@@ -45,6 +45,25 @@
   pointer-events: auto;
 }
 
+/* #photoModeSavePrompt {
+  content: "Touch and hold to save 💾";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-size: 6vmin;
+  padding: 2vmin;
+  color: black;
+  text-align: center;
+  background-color: white;
+}
+
+.photo #photoModeSavePrompt {
+  opacity: 1;
+  transition: 0s;
+  pointer-events: auto;
+} */
+
 #tapToPlace {
   position: absolute;
   width: 100%;

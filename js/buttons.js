@@ -2,6 +2,7 @@ AFRAME.registerComponent('buttons', {
   init: function() {
     const container = document.getElementById('photoModeContainer')
     const image = document.getElementById('photoModeImage')
+    // const textContent = document.getElementById('photoModeSavePrompt')
     const shutterButton = document.getElementById('shutterButton')
     const twoDoorButton = document.getElementById('twoDoorButton')
     const fourDoorButton = document.getElementById('fourDoorButton')
