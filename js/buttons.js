@@ -29,6 +29,8 @@ AFRAME.registerComponent('buttons', {
 
     closeButton.addEventListener('click', () => {
       container.classList.remove('photo')
+      sceneEl.querySelector('a-entity#hotspot1').setAttribute('visible', 'true')
+      sceneEl.querySelector('a-entity#hotspot2').setAttribute('visible', 'true')
     })
 
     shutterButton.addEventListener('click', () => {
@@ -37,6 +39,8 @@ AFRAME.registerComponent('buttons', {
 
       // Show the flash while the image is being taken
       container.classList.add('flash')
+      sceneEl.querySelector('a-entity#hotspot1').setAttribute('visible', 'false')
+      sceneEl.querySelector('a-entity#hotspot2').setAttribute('visible', 'false')
     })
 
     this.el.sceneEl.addEventListener('screenshotready', e => {

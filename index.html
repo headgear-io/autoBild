@@ -97,8 +97,10 @@
   <body>
     <!-- These HTML elements are used to show an UI laid over the scene -->
     <div id="photoModeContainer" style="display: none">
-      <img id="photoModeImage">
-      <div id="photoModeSavePrompt"></div>
+      <div id="photoBox">
+        <img id="photoModeImage">
+        <div id="photoModeSavePrompt">Press and hold to save</div>
+      </div>
       <div id="flash"></div>
       <div id="tapToPlace"></div>
       <div id="shutterButton"></div>
@@ -155,11 +157,13 @@
             cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
             shadow
             visible="false">
-            <a-entity id='hotspot2' hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
-            position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
-            </a-entity>
-            <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
-              <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1434375 0.286875 0.286875" position="0 -.8 0.6" class="clickable"></a-entity>
+            <a-entity id='hotspot2'>
+              <a-entity hotspots-component="hstarget: #rstHs2; closetarget: #rstHsClose2; assetlocation: img/hotspotLayer.png"
+              position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
+              </a-entity>
+              <a-entity id="rstHs2" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
+                <a-entity id="rstHsClose2" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1434375 0.286875 0.286875" position="0 -.8 0.6" class="clickable"></a-entity>
+              </a-entity>
             </a-entity>
           </a-entity>
           <a-entity
@@ -167,13 +171,15 @@
             gltf-model="#4Door"
             cube-env-map="path: cubemap/; extension: png; reflectivity: 1"
             shadow>
-            <a-entity id='hotspot1' hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
-            position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
+              <a-entity id='hotspot1'>
+                <a-entity hotspots-component="hstarget: #rstHs1; closetarget: #rstHsClose1; assetlocation: img/hotspotLayer.png"
+                position="0 .9 0.6" look-at="#lookCube" geometry="primitive: circle" material="src: #open; shader: flat; side: double" scale=".075 .075 .075">
+                </a-entity>
+                <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
+                  <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1434375 0.286875 0.286875" position="0 -.8 0.6" class="clickable"></a-entity>
+                </a-entity>
+              </a-entity>
             </a-entity>
-            <a-entity id="rstHs1" class="sceneHotspot" position="0 1.1 0.6" look-at="#lookCube" geometry="" material="shader: flat; transparent: true; alphaTest:  0.1;" scale="0.474375 0.239559375 0.00790625" rotation="0 0 0" visible="false">
-              <a-entity id="rstHsClose1" geometry="primitive: circle" material="src: #close; shader: flat; side: double" scale="0.1434375 0.286875 0.286875" position="0 -.8 0.6" class="clickable"></a-entity>
-            </a-entity>
-          </a-entity>
         </a-entity>
         <a-entity attach="target: carModel">
           <a-entity position="0 2 0"
